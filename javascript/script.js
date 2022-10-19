@@ -1,12 +1,13 @@
 const display = document.querySelector("#display");
 const buttons = document.querySelectorAll(".button");
 const equals = document.querySelector(".equals");
+let decimal = document.querySelector(".decimal");
 let displayCalc = "";
 
 buttons.forEach(button => {
     button.addEventListener("click", ()=>{
         let btnValue = button.getAttribute("value");
-
+        // try somewhere here for the decimal
         if (btnValue != "clear" && btnValue !="delete") {
             displayCalc += btnValue;
             display.textContent = displayCalc;
@@ -15,7 +16,7 @@ buttons.forEach(button => {
             displayCalc = displayCalc.slice(0, -1);
             display.textContent = displayCalc;
         }
-        else {
+        else if (btnValue == "clear") {
             displayCalc = "";
             display.textContent = displayCalc;
         }
@@ -24,8 +25,17 @@ buttons.forEach(button => {
 
 equals.addEventListener("click", () => {
     try {
-        display.textContent = eval(displayCalc);
+        if (eval(displayCalc) != Infinity) {
+         display.textContent = eval(displayCalc); 
+         console.log(eval(displayCalc));
+        }
+        else if (eval(displayCalc) == Infinity) {
+            alert("That operation is shady...");
+        }
     } catch (error) {
-        alert("That ain't happening. Don't try to break my calculator!");
+        alert("That operation is literally impossible");
+        displayCalc = "";
+        display.textContent = displayCalc;
     }
+
 })
