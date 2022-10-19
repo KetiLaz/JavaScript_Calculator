@@ -33,9 +33,7 @@
     max-width: 400px;
 }
 
-
-
-.button {
+.button, .equals {
     flex: 1 25%;
     font-size: 20px;
 }
