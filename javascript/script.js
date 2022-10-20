@@ -4,10 +4,10 @@ const equals = document.querySelector(".equals");
 let decimal = document.querySelector(".decimal");
 let displayCalc = "";
 
+// Makes the display, clear and delete work.
 buttons.forEach(button => {
     button.addEventListener("click", ()=>{
         let btnValue = button.getAttribute("value");
-        // try somewhere here for the decimal
         if (btnValue != "clear" && btnValue !="delete") {
             displayCalc += btnValue;
             display.textContent = displayCalc;
@@ -23,6 +23,7 @@ buttons.forEach(button => {
     })
 })
 
+// The = button, catch some errors like ++ or /0
 equals.addEventListener("click", () => {
     try {
         if (eval(displayCalc) != Infinity) {
@@ -36,6 +37,12 @@ equals.addEventListener("click", () => {
         alert("That operation is literally impossible");
         displayCalc = "";
         display.textContent = displayCalc;
+    }
+
+    if (displayCalc.includes("+") || display.includes("-") || 
+    displayCalc.includes("*")|| displayCalc.includes("/")) {
+        let result = eval(displayCalc);
+        displayCalc = result;
     }
 
 })

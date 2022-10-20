@@ -7,33 +7,69 @@
 }
 
 #container {
-    background-color: lightslategray;
+    width: 400px;
+    height: 450px;
+    background-color: #BDBDBD;
     border-radius: 4px;
     display: flex;
     flex-wrap: wrap;
-    flex: 0 1 50%;
-    max-width: 400px;
-    border: 3px solid;
+    border: 10px solid #212121;
 }
 
 #display {
     display: flex;
     width: 100%;
-    height: 60px;
-    border: 3px solid;
+    height: 100px;
     justify-content: flex-end;
     align-items: flex-end;
-    font-size: 35px;
+    font-size: 45px;
     background-color: white;
+    border: 5px solid #757575;
+    margin: 10px;
 }
 
 .all_buttons{
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 400px;
+    height: 70%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .button, .equals {
-    flex: 1 25%;
-    font-size: 20px;
+    border-radius: 6px;
+    font-size: 25px;
+    border: none;
+}
+
+.clear, .zero {
+    grid-column-start: span 2;
+}
+
+.number, .decimal {
+    background-color: #512DA8;
+    color: #FFFFFF;
+}
+
+.number:active, .decimal:active {
+    background-color: #673AB7;
+}
+
+.operator, .equals {
+    background-color: #F57C00;
+    color: #212121;
+}
+
+.operator:active, .equals:active {
+    background-color: #FF9800;
+}
+
+.clear, .delete {
+    background-color: #c22929;
+    color: #FFFFFF;
+}
+
+.clear:active, .delete:active {
+    background-color: #F44336;
 }
