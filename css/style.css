@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 #calculator {
     display: flex;
     justify-content: center;
@@ -22,10 +26,13 @@
     height: 100px;
     justify-content: flex-end;
     align-items: flex-end;
-    font-size: 45px;
+    font-size: 40px;
+    font-family:'Times New Roman', Times, serif;
     background-color: white;
     border: 5px solid #757575;
     margin: 10px;
+    overflow: hidden;
+    word-break: break-all;
 }
 
 .all_buttons{
@@ -40,6 +47,7 @@
 .button, .equals {
     border-radius: 6px;
     font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
     border: none;
 }
 

@@ -1,13 +1,12 @@
 const display = document.querySelector("#display");
 const buttons = document.querySelectorAll(".button");
 const equals = document.querySelector(".equals");
-let decimal = document.querySelector(".decimal");
 let displayCalc = "";
 
-// Makes the display, clear and delete work.
 buttons.forEach(button => {
     button.addEventListener("click", ()=>{
         let btnValue = button.getAttribute("value");
+
         if (btnValue != "clear" && btnValue !="delete") {
             displayCalc += btnValue;
             display.textContent = displayCalc;
@@ -20,10 +19,19 @@ buttons.forEach(button => {
             displayCalc = "";
             display.textContent = displayCalc;
         }
+
+        if (displayCalc.startsWith("0")) {
+            displayCalc = displayCalc.replace(/^0*/g,"0").replace(/^0*(\d)/g, "$1");
+            display.textContent = displayCalc;
+        }
+
+        if (displayCalc.includes(".")) {
+            displayCalc = displayCalc.replace(/\.+/g, ".");
+            display.textContent = displayCalc;
+        }
     })
 })
 
-// The = button, catch some errors like ++ or /0
 equals.addEventListener("click", () => {
     try {
         if (eval(displayCalc) != Infinity) {
@@ -32,6 +40,8 @@ equals.addEventListener("click", () => {
         }
         else if (eval(displayCalc) == Infinity) {
             alert("That operation is shady...");
+            displayCalc = "";
+            display.textContent = displayCalc;
         }
     } catch (error) {
         alert("That operation is literally impossible");
@@ -39,10 +49,9 @@ equals.addEventListener("click", () => {
         display.textContent = displayCalc;
     }
 
-    if (displayCalc.includes("+") || display.includes("-") || 
-    displayCalc.includes("*")|| displayCalc.includes("/")) {
+    if (displayCalc.includes("+") || displayCalc.includes("-") || 
+        displayCalc.includes("*")|| displayCalc.includes("/")) {
         let result = eval(displayCalc);
-        displayCalc = result;
+        displayCalc = result.toString(); 
     }
-
 })
