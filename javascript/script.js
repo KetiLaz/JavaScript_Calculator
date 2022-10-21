@@ -36,7 +36,8 @@ equals.addEventListener("click", () => {
     try {
         if (eval(displayCalc) != Infinity) {
          display.textContent = eval(displayCalc); 
-         console.log(eval(displayCalc));
+         if(displayCalc.includes("."))
+         display.textContent = eval(displayCalc).toFixed(2);
         }
         else if (eval(displayCalc) == Infinity) {
             alert("That operation is shady...");
@@ -49,9 +50,14 @@ equals.addEventListener("click", () => {
         display.textContent = displayCalc;
     }
 
+    if (displayCalc.endsWith("/")) {
+        alert("That operation is literally impossible");
+        displayCalc = "";
+        display.textContent = displayCalc;
+    }
     if (displayCalc.includes("+") || displayCalc.includes("-") || 
         displayCalc.includes("*")|| displayCalc.includes("/")) {
-        let result = eval(displayCalc);
+        let result = eval(displayCalc).toFixed(2);
         displayCalc = result.toString(); 
     }
 })
