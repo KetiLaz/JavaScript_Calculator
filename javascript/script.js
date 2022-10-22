@@ -34,17 +34,11 @@ buttons.forEach(button => {
 
 equals.addEventListener("click", () => {
     try {
-        if (eval(displayCalc) != Infinity) {
          display.textContent = eval(displayCalc); 
          if(displayCalc.includes("."))
-         display.textContent = eval(displayCalc).toFixed(2);
+         display.textContent = eval(displayCalc).toFixed(6);
         }
-        else if (eval(displayCalc) == Infinity) {
-            alert("That operation is shady...");
-            displayCalc = "";
-            display.textContent = displayCalc;
-        }
-    } catch (error) {
+    catch (error) {
         alert("That operation is literally impossible");
         displayCalc = "";
         display.textContent = displayCalc;
@@ -57,7 +51,7 @@ equals.addEventListener("click", () => {
     }
     if (displayCalc.includes("+") || displayCalc.includes("-") || 
         displayCalc.includes("*")|| displayCalc.includes("/")) {
-        let result = eval(displayCalc).toFixed(2);
+        let result = eval(displayCalc).toFixed(6);
         displayCalc = result.toString(); 
     }
 })
