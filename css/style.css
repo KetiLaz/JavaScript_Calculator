@@ -31,9 +31,8 @@ body {
     background-color: white;
     border: 5px solid #757575;
     margin: 10px;
-    overflow: hidden;
-    word-break: break-all;
 }
+
 
 .all_buttons{
     height: 70%;
