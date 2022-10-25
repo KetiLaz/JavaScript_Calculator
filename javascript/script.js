@@ -34,10 +34,18 @@ function decimal(dot) {
     }
 }
 
-function backspace() {
-    if (calculator.waitForSecondNumber = false && calculator.operator == null){
-        calculator.displayCalculator = calculator.displayCalculator.slice(0, -1);
-        display.textContent = calculator.displayCalculator;
+function backspace() { 
+    calculator.displayCalculator = calculator.displayCalculator.slice(0, -1);
+    if (calculator.displayCalculator === "") {
+        calculator.displayCalculator = "0";
+    }
+    if (calculator.operator != null && calculator.waitForSecondNumber == true) {
+        calculator.firstNumber = parseFloat(calculator.displayCalculator);
+    }
+    if (calculator.operator != null && calculator.waitForSecondNumber == false 
+        && calculator.displayCalculator === "0") {
+            calculator.operator = null;
+        calculator.displayCalculator = calculator.firstNumber.toString();
     }
 }
 
@@ -67,7 +75,7 @@ function operator(mathSymbol){
             calculator.displayCalculator = result.toFixed(4);
         }
         else{
-            calculator.displayCalculator = result;
+            calculator.displayCalculator = result.toString();
             calculator.firstNumber = result;
         }  
     }

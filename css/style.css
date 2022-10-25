@@ -31,6 +31,8 @@ body {
     background-color: white;
     border: 5px solid #757575;
     margin: 10px;
+    word-break: break-all;
+    overflow: hidden;
 }
 
 
