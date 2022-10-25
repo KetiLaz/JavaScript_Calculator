@@ -44,7 +44,7 @@ body {
     grid-gap: 1px;
 }
 
-.button, .equals {
+.button {
     border-radius: 6px;
     font-size: 25px;
     font-family: 'Times New Roman', Times, serif;
@@ -64,12 +64,12 @@ body {
     background-color: #673AB7;
 }
 
-.operator, .equals {
+.operator {
     background-color: #F57C00;
     color: #212121;
 }
 
-.operator:active, .equals:active {
+.operator:active {
     background-color: #FF9800;
 }
 

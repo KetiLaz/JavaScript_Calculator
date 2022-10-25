@@ -8,9 +8,14 @@ const calculator = {
 };
 
 function firstNumber(number){
-    let displayCalculator = calculator.displayCalculator;
-    calculator.displayCalculator = displayCalculator === "0" ? number :displayCalculator + number;
-    
+    if (calculator.waitForSecondNumber === true) {
+        calculator.displayCalculator = number;
+        calculator.waitForSecondNumber = false;
+    }
+    else{
+        let displayCalculator = calculator.displayCalculator;
+        calculator.displayCalculator = displayCalculator === "0" ? number :displayCalculator + number;
+    }
 }
 
 function updateDisplay() {
@@ -18,36 +23,91 @@ function updateDisplay() {
 }
 
 function decimal(dot) {
+    // Fixes the . bug  
+    if (calculator.waitForSecondNumber === true) {
+        calculator.displayCalculator = "0.";
+        calculator.waitForSecondNumber = false;
+        return;
+    }
     if(!calculator.displayCalculator.includes(".")){
         calculator.displayCalculator += dot;
     }
 }
 
 function backspace() {
-    let displayCalc = calculator.displayCalculator;
-    displayCalc = displayCalc.slice(0, -1);
-    display.textContent = displayCalc;
-    console.log(displayCalc)
-
+    if (calculator.waitForSecondNumber = false && calculator.operator == null){
+        calculator.displayCalculator = calculator.displayCalculator.slice(0, -1);
+        display.textContent = calculator.displayCalculator;
+    }
 }
 
-function clearAll() {
-    calculator.displayCalculator = "";
+function clearAll(){
+    calculator.displayCalculator = "0";
+    calculator.firstNumber = null;
+    calculator.waitForSecondNumber = false;
+    calculator.operator = null;
 }
 
+function operator(mathSymbol){
+    let displayCalculator = calculator.displayCalculator;
+    let displayNumber = parseFloat(displayCalculator);
+
+    // Change the operator if user changes mind 
+    if (operator && calculator.waitForSecondNumber){
+        calculator.operator = mathSymbol;
+        console.log(calculator);
+        return;
+    }
+    if (calculator.firstNumber === null){
+        calculator.firstNumber = displayNumber;
+    }
+    else if (operator){
+        let result = operate(calculator.firstNumber, displayNumber, calculator.operator);
+        if (result.toString().includes(".")) {
+            calculator.displayCalculator = result.toFixed(4);
+        }
+        else{
+            calculator.displayCalculator = result;
+            calculator.firstNumber = result;
+        }  
+    }
+    calculator.waitForSecondNumber = true;
+    calculator.operator = mathSymbol;
+}
+
+function operate(firstNumber, secondNumber, operator){
+   if (operator === "+"){
+    return firstNumber + secondNumber;
+   }
+   else if (operator === "-"){
+    return firstNumber - secondNumber;
+   }
+   else if (operator === "*") {
+    return firstNumber * secondNumber;
+   }
+   else if (operator === "/"){
+    return firstNumber / secondNumber;
+   }
+}
+
+// Handle every pushed button
 buttons.forEach(button =>{
     button.addEventListener("click", (e)=>{
         const target = e.target;
         if (target.classList.contains("operator")){
-            console.log("operator", target.value);
+            operator(target.value);
+            updateDisplay();
+            console.log(calculator);
         }
         else if(target.classList.contains("number")){
             firstNumber(target.value);
             updateDisplay();
+            console.log(calculator);
         }
         else if (target.classList.contains("decimal")){
             decimal(target.value);
             updateDisplay();
+            console.log(calculator);
         }
         else if (target.classList.contains("clear")) {
             clearAll();
@@ -55,6 +115,8 @@ buttons.forEach(button =>{
         }
         else if (target.classList.contains("delete")) {
             backspace();
+            updateDisplay();
+            console.log(calculator);
         }
     })
 })
