@@ -1,5 +1,6 @@
 const display = document.querySelector("#display");
 const buttons = document.querySelectorAll(".all_buttons");
+
 const calculator = {
     displayCalculator: "0",
     firstNumber: null,
@@ -12,6 +13,7 @@ function firstNumber(number){
         calculator.displayCalculator = number;
         calculator.waitForSecondNumber = false;
     }
+    // If calculator.displayCalculator is 0 overwrite with number clicked. Otherwise append the number
     else{
         let displayCalculator = calculator.displayCalculator;
         calculator.displayCalculator = displayCalculator === "0" ? number :displayCalculator + number;
@@ -44,7 +46,7 @@ function backspace() {
     }
     if (calculator.operator != null && calculator.waitForSecondNumber == false 
         && calculator.displayCalculator === "0") {
-            calculator.operator = null;
+        calculator.waitForSecondNumber = true;
         calculator.displayCalculator = calculator.firstNumber.toString();
     }
 }
@@ -62,8 +64,7 @@ function operator(mathSymbol){
 
     // Change the operator if user changes mind 
     if (operator && calculator.waitForSecondNumber){
-        calculator.operator = mathSymbol;
-        console.log(calculator);
+        calculator.operator = mathSymbol
         return;
     }
     if (calculator.firstNumber === null){
@@ -105,17 +106,14 @@ buttons.forEach(button =>{
         if (target.classList.contains("operator")){
             operator(target.value);
             updateDisplay();
-            console.log(calculator);
         }
         else if(target.classList.contains("number")){
             firstNumber(target.value);
             updateDisplay();
-            console.log(calculator);
         }
         else if (target.classList.contains("decimal")){
             decimal(target.value);
             updateDisplay();
-            console.log(calculator);
         }
         else if (target.classList.contains("clear")) {
             clearAll();
@@ -124,85 +122,6 @@ buttons.forEach(button =>{
         else if (target.classList.contains("delete")) {
             backspace();
             updateDisplay();
-            console.log(calculator);
         }
     })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const display = document.querySelector("#display");
-// const buttons = document.querySelectorAll(".button");
-// const equals = document.querySelector(".equals");
-// let displayCalc = "";
-
-// buttons.forEach(button => {
-//     button.addEventListener("click", ()=>{
-//         let btnValue = button.getAttribute("value");
-
-//         if (btnValue != "clear" && btnValue !="delete") {
-//             displayCalc += btnValue;
-//             display.textContent = displayCalc;
-//         }
-//         else if (btnValue == "delete") {
-//             displayCalc = displayCalc.slice(0, -1);
-//             display.textContent = displayCalc;
-//         }
-//         else if (btnValue == "clear") {
-//             displayCalc = "";
-//             display.textContent = displayCalc;
-//         }
-
-//         if (displayCalc.startsWith("0")) {
-//             displayCalc = displayCalc.replace(/^0*/g,"0").replace(/^0*(\d)/g, "$1");
-//             display.textContent = displayCalc;
-//         }
-
-//         if (displayCalc.includes(".")) {
-//             displayCalc = displayCalc.replace(/\.+/g, ".");
-//             display.textContent = displayCalc;
-//         }
-//     })
-// })
-
-// equals.addEventListener("click", () => {
-//     try {
-//          display.textContent = operate(displayCalc); 
-//          if(displayCalc.includes("."))
-//          display.textContent = operate(displayCalc).toFixed(6);
-//         }
-//     catch (error) {
-//         alert("That operation is literally impossible");
-//         displayCalc = "";
-//         display.textContent = displayCalc;
-//     }
-
-//     if (displayCalc.endsWith("/")) {
-//         alert("That operation is literally impossible");
-//         displayCalc = "";
-//         display.textContent = displayCalc;
-//     }
-//     if (displayCalc.includes("+") || displayCalc.includes("-") || 
-//         displayCalc.includes("*")|| displayCalc.includes("/")) {
-//         let result = eval(displayCalc).toFixed(6);
-//         displayCalc = result.toString(); 
-//     }
-// })
